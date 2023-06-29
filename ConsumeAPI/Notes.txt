@@ -1,0 +1,15 @@
+When using API, we copy the URL from the API documentation. We then check how to authenticate the API on the documentaiton as well.
+When passing parameters we use the question mark to pass the first parameter. If we need to pass more paramters we then use the 
+    ampersand symbol (&).
+
+The ppring package helps to print json format files in a more readible way.
+In python, json are automatically converted to a dictionary. We can check it by using type() function. What that means is that
+    any methods available for dictionary can be used such as traversing it using .get(<<name>>). For example:
+        pprint.pprint(response.json().get('data').get('1').get('quote').get('USD').get('price'))
+    This code above gets the price going through the path data > 1 > quote > usd > price.
+    The second argument of get which is option allow us to tell the code what to return if nothing is found:
+        print(response.json().get('dataaa', {}).get('1', {}).get('quote', {}).get('USD', {}).get('price', {}))
+        output = {} instead AttributeError: 'NoneType' object has no attribute 'get'
+    The code above will return an empty dictionary instead an error if there is not an object called data inside the json file.
+        
+
