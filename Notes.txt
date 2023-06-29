@@ -1,0 +1,122 @@
+
+INTRODUCTION
+
+API (Application Programming Interface)
+It is basically a way of 2 pieces of software can communicate with one another.
+
+        A                                              B
+(build in Python)                                (build in Java)
+
+Request         >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<      Responde
+
+Normally one way thing only. A common setup is a client (which consumes information) and a server (which provides information)
+
+JSON is the file format that we get the information format. It standars for Java Script Object Notation. This is the standard for APIs. 
+
+There are APIs that use XML, but the most common is JSON.
+
+A endpoint is where we make the requests.
+
+REST (Representation Estate Transfer) - It is the means of communication. We are talking in English (API or JSON) but we are talking face to face, or 
+    over the phone, etc. It is how we are communicating. REST we communicate over the internet.
+
+Normally companies will split their webpages and their apis, using either a different domain or a api to distinct them.
+
+Modularity happens due to the fact that the backend and frontend are separated and the consistent way to communicate via API, we can swap things up
+    with less risks of breaking the application. We could change the languages for example. We can change the backend without requesting a change 
+    to the app or the mobile application and so on.
+
+The frontend does not need to be build by you. We can make them public and anyone can go ahead and create apps to consume the API.
+
+If we want to protect the API we can look at authentical methods, OAuth2 (Open Authentication 2).
+
+
+DIFFERENT METHODS 
+
+GET - use to grequest data from the server
+POST - use to write data to the server. Use to write new data
+DELETE - use to delete data 
+PUT - use to write data to the server. Use to update data in the database
+
+CRUD - 
+Create - POST method
+Read - GET method
+Update - PUT method
+Delete - DELETE method
+
+POST is use to add a resorce and PUT is use to replace a resource. In order to do  POST request, we need to pass the address. POST /drinks.
+    With PUT we need to have pass /drinks/605 where 605 is hte iD. The PUT method needs an id.
+    Also PUT is desing to give the give the same result everytime if you make the same request. For example if you are replacing the ID 605,
+    you can do that over and over again. For example, cola, and then with sprinte, and then with orange crush. We can replace as long as the 
+    ID 605 still exists. With POST, you will be adding the resources again and again. PUT is idempotent. In computer science and web development, 
+    "idempotent" is a term used to describe an operation or function that can be applied multiple times without changing the result beyond the 
+    initial application. In other words, no matter how many times you repeat an idempotent operation, the outcome remains the same as if it 
+    were only performed once.
+
+PATCH - use to replace specific pieces of the resource.
+
+
+CREATING YOUR OWN API
+
+Step 1 - Create a virtual enviroment using the terminal. This isolates the dependecy for this specific application
+    python3 -m venv .venv
+
+Step 2 - Activate the enviroment. The activate file is inside Scripts and activate.
+     .venv\Scripts\activate
+
+Step 3- We can then install all the dependecies required
+    pip install flask
+    pip install flask-sqlalchemy
+
+Step 4 - We can print the dependencies in a txt file to make it easier for people using this project
+    pip freeze > requirements.txt
+
+Step 5 - We just create the file in which we will hold the application
+    touch application.py
+    In windowns we actually use the type nul command instead touch as it is not available
+    type nul > application.py
+
+Step 6 - Create the Python Code
+
+Step 7 - Run and test the application. We need to create some enviroment variables first
+    set FLASK_app=application.py
+    set FLASK_ENV = development
+    flask run
+
+    This must be done everytime we open our terminal. They will be gone everytime we close our terminal
+
+Step 8 - We create a class as this is the way we do object relational mapping. We define them as model.
+Check the python file for that.
+
+Step 9 - We setup our database with a table for drinks. We first define the connection in our code and then we use the python interactive
+    python3 - this will open the interactive mode in python
+We need to pass the app context as Flask 3.0:
+    from application import app, db
+    app.app_context().push()
+    db.create_all()
+
+Step 10 - In order to create new data in the database we use objects. We must also import the class Drink as well
+    from application import Drink
+    drink = Drink(name="Grape Sode", description = "Taste like grapes")
+
+Step 11- In order to add to our session we use the method:
+    db.session.add(drink)
+
+Step 12 - We then commit the changes. This is very important otherwise they are not passed to the instance
+    db.session.commit()
+
+    To see all the drinks we have in the db we can use
+    Drink.query.all()
+
+    We can use a shortcut like this:
+     db.session.add(Drink(name="Cherry", description= "Taste like that one ice cream"))
+
+Step 13 - Now we pass the query information into flask so it can be passed into the API. Check line 35 in the python file
+    We use the same method as Drink.query.all()
+
+The last functionality is the ability to filter the ID on the path that. To do that we create a new rout. Last code included in the Python file.
+There is a discution about being single or plural when creating a resource. There are many discussions. On Stackoverflow it is plural so we keep
+plura.
+
+
