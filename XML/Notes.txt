@@ -4,10 +4,9 @@ HTML is used to define which data is being used on the application.
 
 Parsing means to read information from a file and split it into pieces by identifying parts of that particular XML file.
 
-The 2 modules being used for this exercise are:
+We are using the Element module
 
     xml.etree.ElementTree module -> Formats XML data in a tree structure which is the most natural representaion of hierarchichal data.
-    xml.dom.minidom -> Used by people who are proficient with DOM (Document Object module). DOM applications often start by parsing XML into DOM
 
 ELEMENT MODULE
 For the Element module there are 2 ways to parse information:
@@ -19,6 +18,8 @@ In order to find elements, we can use tab, attrib, text, etc (check picture with
 In order to modify an element, we can use the functions set() and SubElement()
 
 To delete attributes, we can use the function pop(). If we want to remove a complete tag we can use the remove() function
+
+
 
 
 
